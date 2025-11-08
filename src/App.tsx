@@ -25,6 +25,7 @@ function App() {
     const position = form.get('position');    
     const firstname = form.get('firstname');
     const checkbox = form.get('feltetel');
+    //const cucc = form.get('cucc');
     
 if(!lastname){
   newErrors.lastname = 'A mező kitöltése kötelező!'
@@ -41,15 +42,20 @@ if(!firstname || firstname.toString().trim() === ''){
 if(!checkbox){
   newErrors.feltetel = 'Fogadd el a feltételeket!'
 }
+
+//console.log('ez a newerrors: ', newErrors);
+console.log(newErrors);
 ///ITT DOLGOZUNK
-if(newErrors){
-  newValidalt.cucc='Adatok elküldése sikeres!'
-}
+if(!Array.isArray(newErrors)){
+  console.log('Ez a blokk működik');
+  //const validaltUzenet = 'Adatok elküldése sikeres!'
+  validalt.cucc='Adatok elküldése sikeres!'
+ }
     
     setErrors(newErrors);
-    console.log(form);
+    //console.log(form);
     //validáljuk az adatokat, hogy tényleg az jelenik-e meg.
-    console.log(lastname)
+    //console.log(lastname)
   }
   
 
@@ -87,7 +93,7 @@ if(newErrors){
 
 
       {/* alapvetően submit az értéke */}
-      <button type='submit'>Regisztráció</button> 
+      <button type='submit' >Regisztráció</button> 
        <p className='mindenok'>{validalt.cucc}</p>    
     </form>
   );
