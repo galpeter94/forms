@@ -1,25 +1,95 @@
-import React from 'react';
+import React, { FormEvent, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
+type Errors = Record<string,string>
+type Validalt = Record<string,string>
+
 function App() {
+  
+  const [errors, setErrors] = useState<Errors>({});
+  const [validalt, setValidalt] = useState<Validalt>({});
+
+
+  // Letiltja, hogy újratöltse az oldalt, ha megnyomjuk a submit gombot.
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+    //létrehozunk egy obejktumot amiben benne vannak a form adatai
+    const newErrors:Errors = {};
+    const newValidalt:Validalt = {};
+
+
+    const form = new FormData(e.currentTarget);
+    const lastname = form.get('lastname');
+    const position = form.get('position');    
+    const firstname = form.get('firstname');
+    const checkbox = form.get('feltetel');
+    
+if(!lastname){
+  newErrors.lastname = 'A mező kitöltése kötelező!'
+};
+
+if(!position){
+  newErrors.position = 'EHE DIKK'
+};
+
+if(!firstname || firstname.toString().trim() === ''){
+  newErrors.firstname = 'A keresztnév kitöltése kötelező!'
+};
+
+if(!checkbox){
+  newErrors.feltetel = 'Fogadd el a feltételeket!'
+}
+///ITT DOLGOZUNK
+if(newErrors){
+  newValidalt.cucc='Adatok elküldése sikeres!'
+}
+    
+    setErrors(newErrors);
+    console.log(form);
+    //validáljuk az adatokat, hogy tényleg az jelenik-e meg.
+    console.log(lastname)
+  }
+  
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label >Vezetéknév</label>
+      <input type='text'name='lastname'/>
+      <p>{
+          errors.lastname //ha errors? akkor az kb egy if clause..
+        }</p>
+
+      <label >Keresztnév</label>
+      <input type='text'name='firstname'/>
+      <p>
+        {errors.firstname}
+      </p>
+
+
+        <select name="position" >
+        <option value=''> Kérlek válassz pozíciót</option>
+          <option value="dev">Developer</option>
+          <option value="des">Designer</option>
+          <option value="denes">Dé:nash</option>
+        </select>
+        <p>{errors.position}</p>
+
+        <label ><input type="checkbox" name='feltetel' className='cseki'/>
+         ELFOGADOM A FELHASZNÁLÁSI FELTÉTELEKET</label>
+        <p>{
+          errors.feltetel}</p>
+      
+      
+      <br></br><button type='button'>Vissza</button>
+
+
+      {/* alapvetően submit az értéke */}
+      <button type='submit'>Regisztráció</button> 
+       <p className='mindenok'>{validalt.cucc}</p>    
+    </form>
   );
 }
 
