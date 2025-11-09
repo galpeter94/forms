@@ -44,18 +44,23 @@ if(!checkbox){
 }
 
 //console.log('ez a newerrors: ', newErrors);
-console.log(newErrors);
+//console.log(newErrors);
 ///ITT DOLGOZUNK
-if(!Array.isArray(newErrors)){
-  console.log('Ez a blokk működik');
-  //const validaltUzenet = 'Adatok elküldése sikeres!'
-  validalt.cucc='Adatok elküldése sikeres!'
- }
+
     
     setErrors(newErrors);
+    //console.log(newErrors.type);
     //console.log(form);
     //validáljuk az adatokat, hogy tényleg az jelenik-e meg.
     //console.log(lastname)
+if(checkbox && firstname &&lastname && position){
+  //console.log('Ez a blokk működik');
+  //const validaltUzenet = 'Adatok elküldése sikeres!'
+  validalt.cucc='Adatok elküldése sikeres!'
+ }
+
+  setValidalt(validalt);
+
   }
   
 
@@ -93,7 +98,7 @@ if(!Array.isArray(newErrors)){
 
 
       {/* alapvetően submit az értéke */}
-      <button type='submit' >Regisztráció</button> 
+      <button type='submit' name='cucc'>Regisztráció</button> 
        <p className='mindenok'>{validalt.cucc}</p>    
     </form>
   );
